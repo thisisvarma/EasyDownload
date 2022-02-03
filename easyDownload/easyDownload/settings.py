@@ -47,7 +47,13 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.facebook',
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",

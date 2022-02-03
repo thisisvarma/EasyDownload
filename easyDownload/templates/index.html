@@ -3,28 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Easy Download</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
 
 {% load socialaccount %}
-<h2 class="">This is Easy download App</h2>
+<h2 class="m-2 p-1">This is Easy download App</h2>
 
     {% if user.is_authenticated %}
-    <p>Welcome {{ user.username }} !!!</p>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="/logout">Logout</a></li>
-    </ul>
-        <h2 class="">New Assignment Upload Section</h2>
-        <form enctype="multipart/form-data" method="post">
-            {% csrf_token %}
-            {{ assignment_form }}
-            <button type="submit" class="btn btn-success">Submit</button>
-        </form>
 
+    <div class="container">
+        <p class="h5 m-2 p-1">Welcome {{ user.username }} !!!</p>
+        <button type="button" class="btn btn-success"><a class="dropdown-item" href="/logout">Logout</a></button>
+    </div>
+
+        <div class="container">
+            <h2 class="h1">New Assignment Upload Section</h2>
+            <form enctype="multipart/form-data" method="post">
+<!--                {% load crispy_forms_tags %}-->
+                {% csrf_token %}
+                {{ assignment_form }}
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
         <br>
-        <h2 class="">List of avaliable assignments</h2>
 
-        <table>
+        <div class="container">
+            <h2 class="h1">List of avaliable assignments</h2>
+        </div>
+
+
+        <table class="table m-2 p-5">
           <tr>
             <th>Subject Name</th>
             <th>Assignment Name</th>
@@ -43,13 +52,18 @@
         </table>
 
     {% else %}
-    <ul class="dropdown-menu">
-        <h2 class="">Registration is mandatory to download Assignment files</h2>
-        <li><a href="{% provider_login_url 'google' %}">Login with Google</a></li>
-        <li><a href="{% provider_login_url 'github' %}">SignUp or Login with Github</a></li>
-        <li><a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook OAuth2</a></li>
-        <li><a href="/login">Login with EasyDownload Account</a></li>
-    </ul>
+    <div class="container">
+        <h4 class="">Registration is mandatory to download Assignment files</h4>
+        <div class="row-3 justify-content-center">
+            <ul class="list-group">
+                <li class="list-group-item"><a href="{% provider_login_url 'google' %}">Login with Google</a></li>
+                <li class="list-group-item"><a href="{% provider_login_url 'github' %}">SignUp or Login with Github</a></li>
+                <li class="list-group-item"><a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook OAuth2</a></li>
+                <li class="list-group-item"><a href="/login">Login with EasyDownload Account</a></li>
+            </ul>
+        </div>
+    </div>
+
 
     {% endif %}
 
