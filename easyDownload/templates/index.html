@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Easy Download</title>
+</head>
+<body>
+
+{% load socialaccount %}
+<h2 class="">This is Easy download App</h2>
+
+    {% if user.is_authenticated %}
+    <p>Welcome {{ user.username }} !!!</p>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+    </ul>
+        <h2 class="">New Assignment Upload Section</h2>
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {{ assignment_form }}
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+
+        <br>
+        <h2 class="">List of avaliable assignments</h2>
+
+        <table>
+          <tr>
+            <th>Subject Name</th>
+            <th>Assignment Name</th>
+            <th>File</th>
+          </tr>
+            {% for assignment in assignments %}
+            <tr>
+                <td>{{assignment.subject_name}}</td>
+                <td>{{assignment.assignment_name}}</td>
+                <td>
+                    <a href="media/{{assignment.assignment_file}}" download class="">Download</a>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </table>
+
+    {% else %}
+    <ul class="dropdown-menu">
+        <h2 class="">Registration is mandatory to download Assignment files</h2>
+        <li><a href="{% provider_login_url 'google' %}">Login with Google</a></li>
+        <li><a href="{% provider_login_url 'github' %}">SignUp or Login with Github</a></li>
+        <li><a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook OAuth2</a></li>
+        <li><a href="/login">Login with EasyDownload Account</a></li>
+    </ul>
+
+    {% endif %}
+
+</body>
+</html>
